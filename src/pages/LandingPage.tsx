@@ -219,7 +219,7 @@ export const LandingPage: React.FC = () => {
                         border="1px"
                         borderColor="gray.200"
                     >
-                        <HStack spacing={10}>
+                        <SimpleGrid spacing={10} columns={{ sm: 1, md: 5 }}>
                             <InputGroup size="md">
                                 <Input
                                     pr="4.5rem"
@@ -264,7 +264,7 @@ export const LandingPage: React.FC = () => {
                             <Button colorScheme="teal" variant="solid" p="20px" onClick={resetFilters}>
                                 Reset
                             </Button>
-                        </HStack>
+                        </SimpleGrid>
                     </HStack>
                     {isLoading ? (
                         <Spinner
@@ -280,7 +280,7 @@ export const LandingPage: React.FC = () => {
                             {data &&
                                 data.map((e: CryptoInfo, i) => (
                                     <Box
-                                        class="cryptoCard"
+                                        className="cryptoCard"
                                         w="180px"
                                         maxH="300px"
                                         my="16px"
