@@ -1,8 +1,13 @@
 import { SearchIcon } from '@chakra-ui/icons';
 import {
+    Alert,
+    AlertDescription,
+    AlertIcon,
+    AlertTitle,
     Box,
     Button,
     Center,
+    CloseButton,
     Heading,
     HStack,
     Input,
@@ -150,7 +155,6 @@ export const LandingPage: React.FC = () => {
             setIsLoading(false);
         } catch (error) {
             sethasError('An Error Occurred.');
-            window.alert(hasError);
         }
         setIsLoading(false);
     };
@@ -185,7 +189,7 @@ export const LandingPage: React.FC = () => {
         }
     };
 
-    //Reset FIlters
+    //Reset Filters
     const resetFilters = () => {
         setSearch('');
         setSearchIds(null);
@@ -202,81 +206,93 @@ export const LandingPage: React.FC = () => {
 
     return (
         <GeneralLayout>
-            <VStack bg={useColorModeValue('gray.100', 'gray.900')}>
-                <Heading>All Cryptos</Heading>
-                Find all the crypto's here
-                <HStack spacing={10}>
+            {hasError ? (
+                <Alert status="error">
+                    <AlertIcon />
+                    <AlertTitle mr={2}>Your browser is outdated!</AlertTitle>
+                    <AlertDescription>Your Chakra experience may be degraded.</AlertDescription>
+                    <CloseButton position="absolute" right="8px" top="8px" />
+                </Alert>
+            ) : (
+                <VStack bg={useColorModeValue('gray.100', 'gray.900')}>
+                    <Heading>All Cryptos</Heading>
+                    Find all the crypto's here
                     <HStack spacing={10}>
-                        <InputGroup size="md">
-                            <Input
-                                pr="4.5rem"
-                                placeholder="Search Crypto"
-                                value={search}
-                                onChange={(e) => searchCrypto(e.target.value)}
-                            />
-                            <InputRightElement color="gray.400" width="4.5rem">
-                                <SearchIcon />
-                            </InputRightElement>
-                        </InputGroup>
-                        <Select onChange={(e) => setCategory(e.target.value)}>
-                            <option value="none">Select Category</option>
-                            {categories.map(function (cat) {
-                                if (cat.category_id.toLowerCase() === category?.toLowerCase())
-                                    return (
-                                        <option value={cat.category_id} selected>
-                                            {cat.name}
-                                        </option>
-                                    );
-                                else return <option value={cat.category_id}>{cat.name}</option>;
-                            })}
-                        </Select>
-                        <Select onChange={(e) => setSortBy(e.target.value)}>
-                            <option value="none">Sort By</option>
-                            <option value="market_cap_desc">Highest Market Cap</option>
-                            <option value="market_cap_asc">Lowest Market Cap</option>
-                            <option value="volume_desc">High Volume</option>
-                            <option value="volume_asc">Low Volume</option>
-                            <option value="gecko_desc">High CoinGecko Score</option>
-                            <option value="gecko_asc">Lowest CoinGecko Score</option>
-                        </Select>
-                        <Select placeholder="Per Page" onChange={(e) => setperPage(Number.parseInt(e.target.value))}>
-                            <option value="12">12</option>
-                            <option value="24">24</option>
-                            <option value="48">48</option>
-                            <option value="120">120</option>
-                        </Select>
-                        <Button colorScheme="teal" variant="solid" p="20px" onClick={resetFilters}>
-                            Reset
-                        </Button>
+                        <HStack spacing={10}>
+                            <InputGroup size="md">
+                                <Input
+                                    pr="4.5rem"
+                                    placeholder="Search Crypto"
+                                    value={search}
+                                    onChange={(e) => searchCrypto(e.target.value)}
+                                />
+                                <InputRightElement color="gray.400" width="4.5rem">
+                                    <SearchIcon />
+                                </InputRightElement>
+                            </InputGroup>
+                            <Select onChange={(e) => setCategory(e.target.value)}>
+                                <option value="none">Select Category</option>
+                                {categories.map(function (cat) {
+                                    if (cat.category_id.toLowerCase() === category?.toLowerCase())
+                                        return (
+                                            <option value={cat.category_id} selected>
+                                                {cat.name}
+                                            </option>
+                                        );
+                                    else return <option value={cat.category_id}>{cat.name}</option>;
+                                })}
+                            </Select>
+                            <Select onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="none">Sort By</option>
+                                <option value="market_cap_desc">Highest Market Cap</option>
+                                <option value="market_cap_asc">Lowest Market Cap</option>
+                                <option value="volume_desc">High Volume</option>
+                                <option value="volume_asc">Low Volume</option>
+                                <option value="gecko_desc">High CoinGecko Score</option>
+                                <option value="gecko_asc">Lowest CoinGecko Score</option>
+                            </Select>
+                            <Select
+                                placeholder="Per Page"
+                                onChange={(e) => setperPage(Number.parseInt(e.target.value))}
+                            >
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="48">48</option>
+                                <option value="120">120</option>
+                            </Select>
+                            <Button colorScheme="teal" variant="solid" p="20px" onClick={resetFilters}>
+                                Reset
+                            </Button>
+                        </HStack>
                     </HStack>
-                </HStack>
-                {isLoading ? (
-                    <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
-                ) : (
-                    <SimpleGrid columns={{ sm: 2, md: 6 }} spacing={10} mt="20px">
-                        {data &&
-                            data.map((e: CryptoInfo, i) => (
-                                <Box w="180px" maxH="300px" my="16px" key={i}>
-                                    <CryptoCard {...e} />
-                                </Box>
-                            ))}
-                    </SimpleGrid>
-                )}
-                <Center mb="20px">
-                    <ReactPaginate
-                        previousLabel={'prev'}
-                        nextLabel={'next'}
-                        breakLabel={'...'}
-                        breakClassName={'break-me'}
-                        pageCount={pageCount}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageClick}
-                        containerClassName={'pagination'}
-                        activeClassName={'active'}
-                    />
-                </Center>
-            </VStack>
+                    {isLoading ? (
+                        <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
+                    ) : (
+                        <SimpleGrid columns={{ sm: 2, md: 6 }} spacing={10} mt="20px">
+                            {data &&
+                                data.map((e: CryptoInfo, i) => (
+                                    <Box w="180px" maxH="300px" my="16px" key={i}>
+                                        <CryptoCard {...e} />
+                                    </Box>
+                                ))}
+                        </SimpleGrid>
+                    )}
+                    <Center mb="20px">
+                        <ReactPaginate
+                            previousLabel={'prev'}
+                            nextLabel={'next'}
+                            breakLabel={'...'}
+                            breakClassName={'break-me'}
+                            pageCount={pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName={'pagination'}
+                            activeClassName={'active'}
+                        />
+                    </Center>
+                </VStack>
+            )}
         </GeneralLayout>
     );
 };
