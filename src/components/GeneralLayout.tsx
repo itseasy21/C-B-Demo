@@ -1,7 +1,6 @@
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import React from 'react';
 
-// import Footer from "../components/Footer";
 import Header from '../components/Header';
 
 const GeneralLayout: React.FC = (props: any) => {
@@ -9,7 +8,6 @@ const GeneralLayout: React.FC = (props: any) => {
         <Box width="100%">
             <Header />
             {props.children}
-            {/* <Footer /> */}
         </Box>
     );
 };

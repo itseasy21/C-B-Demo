@@ -126,6 +126,14 @@ export const LandingPage: React.FC = () => {
                 setDataParams(tmpParams);
             }
 
+            //Page Number Filter
+            if (currentPage != dataParams.page) {
+                const tmpParams = dataParams;
+                tmpParams['page'] = currentPage;
+
+                setDataParams(tmpParams);
+            }
+
             //perPage Filter
             if (perPage != dataParams.per_page) {
                 const tmpParams = dataParams;
