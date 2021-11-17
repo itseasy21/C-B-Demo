@@ -39,6 +39,7 @@
 
 /* pagination css */
 .pagination {
+  float: right;
   margin: 15px auto;
   display: flex;
   list-style: none;

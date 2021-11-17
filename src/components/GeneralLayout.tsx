@@ -6,7 +6,7 @@ import Header from '../components/Header';
 
 const GeneralLayout: React.FC = (props: any) => {
     return (
-        <Box width="100%" bg={useColorModeValue('gray.100', 'gray.900')}>
+        <Box width="100%">
             <Header />
             {props.children}
             {/* <Footer /> */}
