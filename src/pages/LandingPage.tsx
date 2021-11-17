@@ -146,7 +146,6 @@ export const LandingPage: React.FC = () => {
                 params: dataParams,
             });
             setData(fetchData.data);
-            setIsLoading(false);
         } catch (error) {
             sethasError('An Error Occurred.');
         }
@@ -203,15 +202,23 @@ export const LandingPage: React.FC = () => {
             {hasError ? (
                 <Alert status="error">
                     <AlertIcon />
-                    <AlertTitle mr={2}>Your browser is outdated!</AlertTitle>
-                    <AlertDescription>Your Chakra experience may be degraded.</AlertDescription>
+                    <AlertTitle mr={2}>An Error Occurred!</AlertTitle>
+                    <AlertDescription>Unable to fetch data, please refresh.</AlertDescription>
                     <CloseButton position="absolute" right="8px" top="8px" />
                 </Alert>
             ) : (
                 <VStack bg={useColorModeValue('gray.100', 'gray.900')}>
-                    <Heading>All Cryptos</Heading>
+                    <Heading m={5}>All Cryptos</Heading>
                     Find all the crypto's here
-                    <HStack spacing={10} id="filters">
+                    <HStack
+                        spacing={10}
+                        id="filters"
+                        p="20px"
+                        bg="white"
+                        borderRadius="40px"
+                        border="1px"
+                        borderColor="gray.200"
+                    >
                         <HStack spacing={10}>
                             <InputGroup size="md">
                                 <Input

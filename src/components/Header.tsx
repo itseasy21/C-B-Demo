@@ -1,34 +1,7 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
-import {
-    Avatar,
-    Box,
-    Flex,
-    HStack,
-    IconButton,
-    Image,
-    Link,
-    Stack,
-    useColorModeValue,
-    useDisclosure,
-} from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { Avatar, Box, Flex, HStack, IconButton, Image, Link, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 
 import CBLogo from '../assets/images/cblogo.png';
-
-const NavLink = ({ children }: { children: ReactNode }) => (
-    <Link
-        px={2}
-        py={1}
-        rounded={'md'}
-        _hover={{
-            textDecoration: 'none',
-            bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-        href={'#'}
-    >
-        {children}
-    </Link>
-);
 
 export default function Header() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,7 +35,7 @@ export default function Header() {
                             <Link href="/trending" id="trending">
                                 Trending
                             </Link>
-                            <Link href="/trending">Global Market Information</Link>
+                            <Link href="/global">Global Market Information</Link>
                         </HStack>
                     </HStack>
                     <Flex alignItems={'center'}>
