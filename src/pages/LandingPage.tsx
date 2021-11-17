@@ -100,12 +100,6 @@ export const LandingPage: React.FC = () => {
                 tmpParams['ids'] = searchIds;
                 setDataParams(tmpParams);
                 setpageCount(1);
-            } else {
-                setDataParams({
-                    per_page: perPage,
-                    page: currentPage,
-                    vs_currency: 'aud',
-                });
             }
 
             //category filter
@@ -132,18 +126,18 @@ export const LandingPage: React.FC = () => {
                 setDataParams(tmpParams);
             }
 
-            //Page Number Filter
-            if (currentPage != dataParams.page) {
-                const tmpParams = dataParams;
-                tmpParams['page'] = currentPage;
-
-                setDataParams(tmpParams);
-            }
-
             //perPage Filter
             if (perPage != dataParams.per_page) {
                 const tmpParams = dataParams;
                 tmpParams['per_page'] = perPage;
+
+                setDataParams(tmpParams);
+            }
+
+            //Page Number Filter
+            if (currentPage != dataParams.page) {
+                const tmpParams = dataParams;
+                tmpParams['page'] = currentPage;
 
                 setDataParams(tmpParams);
             }
@@ -217,7 +211,7 @@ export const LandingPage: React.FC = () => {
                 <VStack bg={useColorModeValue('gray.100', 'gray.900')}>
                     <Heading>All Cryptos</Heading>
                     Find all the crypto's here
-                    <HStack spacing={10}>
+                    <HStack spacing={10} id="filters">
                         <HStack spacing={10}>
                             <InputGroup size="md">
                                 <Input
@@ -230,7 +224,7 @@ export const LandingPage: React.FC = () => {
                                     <SearchIcon />
                                 </InputRightElement>
                             </InputGroup>
-                            <Select onChange={(e) => setCategory(e.target.value)}>
+                            <Select id="category" onChange={(e) => setCategory(e.target.value)}>
                                 <option value="none">Select Category</option>
                                 {categories.map(function (cat) {
                                     if (cat.category_id.toLowerCase() === category?.toLowerCase())
@@ -242,7 +236,7 @@ export const LandingPage: React.FC = () => {
                                     else return <option value={cat.category_id}>{cat.name}</option>;
                                 })}
                             </Select>
-                            <Select onChange={(e) => setSortBy(e.target.value)}>
+                            <Select id="sortBy" onChange={(e) => setSortBy(e.target.value)}>
                                 <option value="none">Sort By</option>
                                 <option value="market_cap_desc">Highest Market Cap</option>
                                 <option value="market_cap_asc">Lowest Market Cap</option>
@@ -266,12 +260,26 @@ export const LandingPage: React.FC = () => {
                         </HStack>
                     </HStack>
                     {isLoading ? (
-                        <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
+                        <Spinner
+                            id="loading-spinner"
+                            thickness="4px"
+                            speed="0.65s"
+                            emptyColor="gray.200"
+                            color="blue.500"
+                            size="xl"
+                        />
                     ) : (
                         <SimpleGrid columns={{ sm: 2, md: 6 }} spacing={10} mt="20px">
                             {data &&
                                 data.map((e: CryptoInfo, i) => (
-                                    <Box w="180px" maxH="300px" my="16px" key={i}>
+                                    <Box
+                                        class="cryptoCard"
+                                        w="180px"
+                                        maxH="300px"
+                                        my="16px"
+                                        key={i}
+                                        data-testid="cryptoItem"
+                                    >
                                         <CryptoCard {...e} />
                                     </Box>
                                 ))}

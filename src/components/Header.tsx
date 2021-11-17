@@ -15,8 +15,6 @@ import { ReactNode } from 'react';
 
 import CBLogo from '../assets/images/cblogo.png';
 
-const Links = ['Dashboard', 'Projects', 'Team'];
-
 const NavLink = ({ children }: { children: ReactNode }) => (
     <Link
         px={2}
@@ -61,7 +59,9 @@ export default function Header() {
                         <Image src={CBLogo} maxH="60px"></Image>
                         <HStack as={'nav'} spacing={8} display={{ base: 'none', md: 'flex' }}>
                             <Link href="/">Home</Link>
-                            <Link href="/trending">Trending</Link>
+                            <Link href="/trending" id="trending">
+                                Trending
+                            </Link>
                             <Link href="/trending">Global Market Information</Link>
                         </HStack>
                     </HStack>
@@ -74,16 +74,6 @@ export default function Header() {
                         />
                     </Flex>
                 </Flex>
-
-                {isOpen ? (
-                    <Box pb={4} display={{ md: 'none' }}>
-                        <Stack as={'nav'} spacing={4}>
-                            {Links.map((link) => (
-                                <NavLink key={link}>{link}</NavLink>
-                            ))}
-                        </Stack>
-                    </Box>
-                ) : null}
             </Box>
         </>
     );
