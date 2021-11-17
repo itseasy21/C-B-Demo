@@ -2,6 +2,7 @@ import { SearchIcon } from '@chakra-ui/icons';
 import {
     Box,
     Button,
+    Center,
     Heading,
     HStack,
     Input,
@@ -261,19 +262,20 @@ export const LandingPage: React.FC = () => {
                             ))}
                     </SimpleGrid>
                 )}
-                <ReactPaginate
-                    previousLabel={'prev'}
-                    nextLabel={'next'}
-                    breakLabel={'...'}
-                    breakClassName={'break-me'}
-                    pageCount={pageCount}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={handlePageClick}
-                    containerClassName={'pagination'}
-                    // subContainerClassName={'pages pagination'}
-                    activeClassName={'active'}
-                />
+                <Center mb="20px">
+                    <ReactPaginate
+                        previousLabel={'prev'}
+                        nextLabel={'next'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageClick}
+                        containerClassName={'pagination'}
+                        activeClassName={'active'}
+                    />
+                </Center>
             </VStack>
         </GeneralLayout>
     );

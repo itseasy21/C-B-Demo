@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
+import { FaSortDown, FaSortUp } from 'react-icons/fa';
 import { IoLogoUsd } from 'react-icons/io';
 
 import CryptoInfo from '../interfaces/CryptoInfo';
@@ -97,7 +98,7 @@ export const CryptoCard: React.FC<CryptoInfo> = ({
 
     return (
         <>
-            <Link onClick={fetchData}>
+            <Link onClick={fetchData} _hover={{ textDecoration: 'none' }}>
                 <Flex
                     w="100%"
                     h="100%"
@@ -134,10 +135,25 @@ export const CryptoCard: React.FC<CryptoInfo> = ({
                                     <IoLogoUsd color="teal" size="24px" />
                                     <Text fontSize="12px">
                                         Price
-                                        <Text fontWeight="bold">
-                                            {current_price ? current_price : 'N/A'} (
-                                            {price_change_percentage_24h ? price_change_percentage_24h : 'N/A'}%)
-                                        </Text>
+                                        <Text fontWeight="bold">{current_price ? current_price : 'N/A'}</Text>
+                                        <HStack>
+                                            {price_change_percentage_24h ? (
+                                                price_change_percentage_24h < 0 ? (
+                                                    <>
+                                                        <FaSortDown color="red" size="15px" />
+                                                        {price_change_percentage_24h}
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <FaSortUp color="green" size="15px" />
+                                                        {price_change_percentage_24h}
+                                                    </>
+                                                )
+                                            ) : (
+                                                'N/A'
+                                            )}
+                                            %
+                                        </HStack>
                                     </Text>
                                 </HStack>
                             </VStack>
@@ -187,7 +203,7 @@ export const CryptoCard: React.FC<CryptoInfo> = ({
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={onClose}>
+                        <Button colorScheme="teal" mr={3} onClick={onClose}>
                             Close
                         </Button>
                         <Link href={'https://www.coingecko.com/en/coins/' + id} target="_blank">

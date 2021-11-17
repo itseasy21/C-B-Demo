@@ -5,13 +5,14 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import LandingPage from './pages/LandingPage';
+import Trending from './pages/Trending';
 
 const AppRoutes: React.FC = () => {
     return (
         <Switch>
             <Route path="/">
-                <Route path="/" component={LandingPage} />
-                {/* <Route path="/trending" component={Trending} /> */}
+                <Route exact path="/" component={LandingPage} />
+                <Route path="/trending" component={Trending} />
             </Route>
         </Switch>
     );
