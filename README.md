@@ -2,6 +2,26 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Structure
+
+> assets
+>> Contains all the static assets like images/videos
+
+> components
+>> Contains all the reusable components, for ex:: CryptoCard (which shows the coin's information), HistoryChart (use to render the chart for crypto)
+
+> interfaces
+>> Contains all the interface components to map the output of CoinGecko API
+
+> pages
+>> Contains all the pages i.e. LandingPage, Trending, GlobalMarket
+
+> tests
+>> Contains all the test cases
+
+> utility
+>> Contains all the utility components, like the helper class for CoinGecko API
+
 ## Available Scripts
 
 In the project directory, you can run:
