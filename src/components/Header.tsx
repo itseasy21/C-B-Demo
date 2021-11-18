@@ -1,5 +1,16 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
-import { Avatar, Box, Flex, HStack, IconButton, Image, Link, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import {
+    Avatar,
+    Box,
+    Flex,
+    HStack,
+    IconButton,
+    Image,
+    Link,
+    Stack,
+    useColorModeValue,
+    useDisclosure,
+} from '@chakra-ui/react';
 
 import CBLogo from '../assets/images/cblogo.png';
 
@@ -47,6 +58,17 @@ export default function Header() {
                         />
                     </Flex>
                 </Flex>
+                {isOpen ? (
+                    <Box pb={4} display={{ md: 'none' }}>
+                        <Stack as={'nav'} spacing={4}>
+                            <Link href="/">Home</Link>
+                            <Link href="/trending" id="trending">
+                                Trending
+                            </Link>
+                            <Link href="/global">Global Market Information</Link>
+                        </Stack>
+                    </Box>
+                ) : null}
             </Box>
         </>
     );
